@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 describe('actors routes', () => {
+
   it('creates an actor', () => {
     return request(app)
       .post('/api/v1/actors')
@@ -30,6 +31,14 @@ describe('actors routes', () => {
         expect(res.body).toEqual({
           ...actor
         });
+      });
+  });
+  it('gets all actors', async() => {
+    const actor = await getActors();
+    return request(app)
+      .get('/api/v1/actors')
+      .then(res => {
+        expect(res.body).toEqual(actor);
       });
   });
 });
