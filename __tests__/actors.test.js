@@ -22,4 +22,14 @@ describe('actors routes', () => {
         });
       });
   });
+  it('gets actors by id', async() => {
+    const actor = await getActor();
+    return request(app)
+      .get(`/api/v1/actors/${actor._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          ...actor
+        });
+      });
+  });
 });
