@@ -2,9 +2,11 @@ const Studio = require('../lib/models/Studio');
 const chance = require('chance').Chance();
 const Actor = require('../lib/models/Actor');
 const Reviewer = require('../lib/models/Reviewer');
+// const Review = require('../lib/models/Review');
+const Film = require('../lib/models/Film');
 
 //giving me a random generated thing
-module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToCreate = 10 } = {}) => {
+module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToCreate = 10, filmsToCreate = 10 } = {}) => {
 //using Studio model to create an array of 10 things, putting data, mapping through it (making a copie, not mutating) 
 //followting the schema and adding random thing. 
   const studios = await Studio.create([...Array(studiosToCreate)].map(() => ({
@@ -26,5 +28,25 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
     name: chance.name(),
     company: chance.company()
   })));
+
+  const films = await Film.create([...Array(filmsToCreate)].map(() => ({
+    title: chance.profession(),
+    studio: chance.pickone(studios),
+    released: chance.date(),
+    cast: [{
+      role: chance.animal(),
+      actor: chance.pickone(actors)
+    }]
+  })));
+
+  // const reviews = await Review.create([...Array(reviewsToCreate)].map(() => ({
+  //   rating: chance.integer ({ min: 1, max: 5 }),
+  //   reviewer: chance.sentence(),
+  //   review: chance.sentence( { words: 5 }),
+  //   film: chance.pickone(films)._id
+  // })));
+
+  
+
 };
 
