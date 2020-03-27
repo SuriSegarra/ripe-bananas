@@ -5,7 +5,7 @@ const seed = require('../db/seed');
 const mongoose = require('mongoose');
 const fs = require('fs');
 
-
+//data-helpers hekp us to test.  let us run tests without having to make up a fake actor/film/whatever first before every test.
 beforeAll(() => {
   connect();
 });
