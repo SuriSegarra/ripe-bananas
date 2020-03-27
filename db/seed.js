@@ -32,7 +32,7 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
   const films = await Film.create([...Array(filmsToCreate)].map(() => ({
     title: chance.profession(),
     studio: chance.pickone(studios),
-    released: chance.date(),
+    released: chance.integer(),
     cast: [{
       role: chance.animal(),
       actor: chance.pickone(actors)
