@@ -30,3 +30,11 @@ describe('reviewers routes', () => {
         }));
   });
 });
+it('gets all reviewers', async() => {
+  const reviewer = await getReviewers();
+  return request(app)
+    .get('/api/v1/reviewers')
+    .then(res => {
+      expect(res.body).toEqual(reviewer);
+    });
+});
