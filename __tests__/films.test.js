@@ -48,4 +48,13 @@ describe('app routes', () => {
         });
       });
   });
+  it('gets all films by id', async() => {
+    const films = await getFilms();
+
+    return request(app)
+      .get('/api/v1/films')
+      .then(res => {
+        expect(res.body).toEqual(films);
+      });
+  });
 });
