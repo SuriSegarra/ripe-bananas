@@ -1,19 +1,8 @@
 const request = require('supertest');
 const app = require('../lib/app');
-const mongoose = require('mongoose');
-const connect = require('../lib/utils/connect');
-require('dotenv').config();
-
+const { getStudios, getStudio } = require('../db/data-helpers');
 describe('studio routes', () => {
-  beforeAll(() => {
-    connect();
-  });
-  beforeEach(() => {
-    return mongoose.connection.dropDatabase();
-  });
-  afterAll(() => {
-    return mongoose.connection.close();
-  });
+
     
   it('creates a studio', () => {
     return request(app)
@@ -37,6 +26,25 @@ describe('studio routes', () => {
           },
           __v: 0
         });
+      });
+  });
+
+  it('gets studio by id', async() => {
+    const studio = await getStudio();
+    return request(app) 
+      .get(`/api/v1/studios/${studio._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          ...studio
+        });
+      });
+  });
+  it('gets all studios', async() => {
+    const studios = await getStudios();
+    return request(app)
+      .get('/api/v1/studios')
+      .then(res => {
+        expect(res.body).toEqual(studios);
       });
   });
 });
