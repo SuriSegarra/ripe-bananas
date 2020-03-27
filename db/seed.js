@@ -2,7 +2,7 @@ const Studio = require('../lib/models/Studio');
 const chance = require('chance').Chance();
 const Actor = require('../lib/models/Actor');
 const Reviewer = require('../lib/models/Reviewer');
-// const Review = require('../lib/models/Review');
+const Review = require('../lib/models/Review');
 const Film = require('../lib/models/Film');
 
 //giving me a random generated thing
@@ -38,13 +38,12 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
       actor: chance.pickone(actors)
     }]
   })));
-
-  // const reviews = await Review.create([...Array(reviewsToCreate)].map(() => ({
-  //   rating: chance.integer ({ min: 1, max: 5 }),
-  //   reviewer: chance.sentence(),
-  //   review: chance.sentence( { words: 5 }),
-  //   film: chance.pickone(films)._id
-  // })));
+  const reviews = await Review.create([...Array(reviewsToCreate)].map(() => ({
+    rating: chance.integer ({ min: 1, max: 5 }),
+    reviewer: chance.sentence(),
+    review: chance.sentence( { words: 5 }),
+    film: chance.pickone(films)._id
+  })));
 
   
 
