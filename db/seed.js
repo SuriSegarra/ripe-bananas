@@ -44,8 +44,5 @@ module.exports = async({ studiosToCreate = 10, actorsToCreate = 10, reviewersToC
     review: chance.sentence( { words: 5 }),
     film: chance.pickone(films)._id
   })));
-
-  
-
 };
 
