@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../lib/app');
-const { getFilm, getFilms, getActor, getStudio, getReviews } = require('../db/data-helpers');
+const { getFilm, getFilms, getActor, getStudio } = require('../db/data-helpers');
 
 
 describe('app routes', () => {
@@ -37,14 +37,14 @@ describe('app routes', () => {
   });
   it('gets a film by id', async() => {
     const film = await getFilm();
-    // const reviews = await getReviews({ film: film._id });
+
 
     return request(app)
       .get(`/api/v1/films/${film._id}`)
       .then(res => {
         expect(res.body).toEqual({
           ...film,
-          // reviews
+    
         });
       });
   });
