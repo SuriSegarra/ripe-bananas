@@ -26,7 +26,7 @@ describe('reviews routes', () => {
         });
       });
   });
-  it('gets all reviews', async () => {
+  it('gets all reviews', async() => {
     const reviews = await getReviews();
     return request(app)
       .get('/api/v1/reviews')
@@ -34,5 +34,13 @@ describe('reviews routes', () => {
         expect(res.body).toEqual(reviews);
       });
   });
-
+  it('deletes a review by id', async() => {
+    const review = await getReview();
+    return request(app)
+      .delete(`/api/v1/reviews/${review._id}`)
+      .then(res => {
+        expect(res.body).toEqual(review);
+      });
+  });
 });
+
